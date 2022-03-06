@@ -13,20 +13,43 @@ class Ball {
 
         this.color = color;
     }
+
+    updatePosition() {
+        this.xPos = this.xPos + this.xVel;
+        this.yPos = this.yPos + this.yVel;
+    }
 }
 
 let s = (sk) => {
-    const exampleBall = new Ball([200, 300], [0, 0], 40, 0);
+    //const exampleBall = new Ball([200, 300], [0, 0], 40, 0);
 
     sk.setup = () => {
-        sk.createCanvas(600, 600);
+        sk.createCanvas(500, 500);
     }
+
+    let x = 250;
+    let y = 500;
 
     sk.draw = () => {
-        sk.background(204);
+        /*   sk.background(204);
+   
+           sk.ellipse(exampleBall.xPos, exampleBall.yPos, exampleBall.radius * 2, exampleBall.radius * 2);
+           this.xPos = this.xPos + this.xVel;
+           this.yPos = this.yPos + this.yVel;
+           sk.ellipse(exampleBall.xPos, exampleBall.yPos, exampleBall.radius * 2, exampleBall.radius * 2);*/
 
-        sk.ellipse(exampleBall.xPos, exampleBall.yPos, exampleBall.radius * 2, exampleBall.radius * 2);
+        sk.background(200);
+
+        sk.stroke(50);
+        sk.fill(100);
+        sk.ellipse(x, y, 24, 24);
+        x = x + sk.random(-1, 1);
+        // Moving up at a constant speed
+        y = y - 1;
     }
+
+    console.log(sk.isLooping());
+
 }
 
 const P5 = new p5(s);
