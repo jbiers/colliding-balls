@@ -1,13 +1,6 @@
 import * as p5 from 'p5';
 import './style.css';
 
-const DOMmanipulator = (() => {
-    const pageTitle = document.createElement('h1');
-    pageTitle.innerHTML = "Colliding Balls";
-
-    document.body.appendChild(pageTitle);
-})();
-
 const canvas = (() => {
     const CANVAS_WIDTH = 500;
     const CANVAS_HEIGHT = 500;
@@ -84,12 +77,18 @@ const canvas = (() => {
         }
     }
 
-    let s = (sk) => {
-        const exampleBall = new Ball([50, 250], [-10, 10], 50, 0);
-        const exampleBall2 = new Ball([200, 200], [2, 5], 20, 0);
-        const exampleBall3 = new Ball([400, 300], [6, -5], 30, 0);
+    const addBall = (newBall) => {
+        balls.push(newBall);
+    }
 
-        let balls = [exampleBall, exampleBall2, exampleBall3];
+    let balls;
+
+    let s = (sk) => {
+        const exampleBall = new Ball([50, 250], [-10, 10], 50, 'green');
+        const exampleBall2 = new Ball([200, 200], [2, 5], 20, 'magenta');
+        const exampleBall3 = new Ball([400, 300], [6, -5], 30, 'red');
+
+        balls = [exampleBall, exampleBall2, exampleBall3];
 
         sk.setup = () => {
             sk.createCanvas(CANVAS_WIDTH, CANVAS_HEIGHT);
@@ -97,7 +96,7 @@ const canvas = (() => {
 
 
         sk.draw = () => {
-            sk.background(204);
+            sk.background(255);
 
             for (let i = 0; i < balls.length; i++) {
                 balls[i].updatePosition();
@@ -108,10 +107,27 @@ const canvas = (() => {
 
                 balls[i].detectBorder();
 
+                sk.fill(balls[i].color);
+                sk.noStroke();
                 sk.ellipse(balls[i].xPos, balls[i].yPos, balls[i].radius * 2, balls[i].radius * 2)
             }
         }
     }
 
     const P5 = new p5(s);
+
+    return {
+        addBall,
+        Ball,
+        balls
+    };
+})();
+
+const DOMmanipulator = (() => {
+    const pageTitle = document.createElement('h1');
+
+    pageTitle.innerHTML = "Colliding Balls";
+    document.body.appendChild(pageTitle);
+
+    // canvas.addBall(new canvas.Ball([450, 250], [-10, 10], 10, 'blue'));
 })();
