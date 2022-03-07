@@ -57,7 +57,7 @@ const canvas = (() => {
             return Math.sqrt(((this.xPos - anotherBall.xPos) ** 2) + ((this.yPos - anotherBall.yPos) ** 2));
         }
 
-        velocityAfterCollision(anotherBall) {
+        handleCollision(anotherBall) {
             let temporaryXVel, temporaryYVel;
 
             temporaryXVel = this.xVel;
@@ -72,7 +72,7 @@ const canvas = (() => {
 
         detectCollision(anotherBall) {
             if (this.distance(anotherBall) < (this.radius + anotherBall.radius)) {
-                this.velocityAfterCollision(anotherBall);
+                this.handleCollision(anotherBall);
             }
         }
     }
@@ -130,4 +130,14 @@ const DOMmanipulator = (() => {
     document.body.appendChild(pageTitle);
 
     // canvas.addBall(new canvas.Ball([450, 250], [-10, 10], 10, 'blue'));
+
+    const addBallForm = document.createElement('div');
+    addBallForm.classList.add('addBallForm');
+
+    // form title
+    const formTitle = document.createElement('h2');
+    formTitle.innerHTML = 'Add new ball';
+    addBallForm.appendChild(formTitle);
+
+    document.body.appendChild(addBallForm);
 })();
