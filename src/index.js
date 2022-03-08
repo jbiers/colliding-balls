@@ -139,5 +139,46 @@ const DOMmanipulator = (() => {
     formTitle.innerHTML = 'Add new ball';
     addBallForm.appendChild(formTitle);
 
+    const xPosInput = document.createElement('input');
+    xPosInput.setAttribute('type', 'text');
+    xPosInput.setAttribute('placeholder', 'X position (0 - 500)');
+    addBallForm.appendChild(xPosInput);
+
+    const yPosInput = document.createElement('input');
+    yPosInput.setAttribute('type', 'text');
+    yPosInput.setAttribute('placeholder', 'Y position (0 - 500)');
+    addBallForm.appendChild(yPosInput);
+
+    const posWarning = document.createElement('span');
+    posWarning.innerHTML = 'Position not available. Try again!'
+    addBallForm.appendChild(posWarning);
+
+    const xVelInput = document.createElement('input');
+    xVelInput.setAttribute('type', 'text');
+    xVelInput.setAttribute('placeholder', 'X velocity');
+    addBallForm.appendChild(xVelInput);
+
+    const yVelInput = document.createElement('input');
+    yVelInput.setAttribute('type', 'text');
+    yVelInput.setAttribute('placeholder', 'Y velocity');
+    addBallForm.appendChild(yVelInput);
+
+    const radiusInput = document.createElement('input');
+    radiusInput.setAttribute('type', 'text');
+    radiusInput.setAttribute('placeholder', 'radius');
+    addBallForm.appendChild(radiusInput);
+
+    const addBallBtn = document.createElement('button');
+    addBallBtn.innerHTML = 'Add Ball';
+    addBallForm.appendChild(addBallBtn);
+
     document.body.appendChild(addBallForm);
+
+    addBallBtn.addEventListener('click', () => {
+        // if position not available, show message
+        // return
+
+        // if position available, hide message
+        // add ball
+    });
 })();
