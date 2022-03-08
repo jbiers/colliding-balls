@@ -180,6 +180,11 @@ const DOMmanipulator = (() => {
 
     document.body.appendChild(addBallForm);
 
+    const cleanBtn = document.createElement('button');
+    cleanBtn.classList.add('cleanBtn');
+    cleanBtn.innerHTML = 'CLEAN CANVAS';
+    document.body.appendChild(cleanBtn);
+
     let xVelNew, yVelNew, radiusNew, colorNew;
 
     function collectValues() {
@@ -204,6 +209,10 @@ const DOMmanipulator = (() => {
         radiusInput.value = '';
     }
 
+    function cleanCanvas() {
+        canvas.balls.length = 0;
+    }
+
     addBallBtn.addEventListener('click', () => {
         collectValues();
         cleanValues();
@@ -211,10 +220,9 @@ const DOMmanipulator = (() => {
         let newBall = new canvas.Ball([canvas.CANVAS_WIDTH / 2, canvas.CANVAS_HEIGHT / 2], [xVelNew, yVelNew], radiusNew, colorNew);
 
         canvas.addBall(newBall);
-        // if position not available, show message
-        // return
+    });
 
-        // if position available, hide message
-        // add ball
+    cleanBtn.addEventListener('click', () => {
+        cleanCanvas();
     });
 })();
