@@ -13,11 +13,91 @@ body {
     flex-direction: column;
     justify-content: center;
     text-align: center;
+    font-family: sans-serif;
 }
 
 h1 {
-    margin-bottom: 2rem;
-    font-family: sans-serif;
+    margin-bottom: 1.5rem;
+}
+
+.addBallForm {
+    display: flex;
+    flex-direction: column;
+}
+.addBallForm h2 {
+    margin-bottom: 0.5rem;
+}
+
+.addBallForm select {
+    height: 2rem;
+    padding: 0.5rem 1rem;
+    text-align: left;
+    margin-bottom: 0.5rem;
+    border-radius: 1rem;
+    border: 1px solid gray;
+    background-color: white;
+    color: gray;
+    position: relative;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+}
+
+.addBallForm select::after {
+    content: '';
+    position: absolute;
+    right: 20px;
+    top: 50%;
+    transform: translateY(-50%) rotate(45deg);
+    width: 6px;
+    height: 6px;
+    border-right: 2px solid #fff;
+    border-bottom: 2px solid #fff;
+}
+
+.addBallForm select:hover {
+    background-color: lightgray;
+    cursor: pointer;
+}
+
+.addBallForm select:active {
+    background: lightgray;
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+    border: 1px solid gray;
+}
+
+.addBallForm select .options {
+    color: black;
+    cursor: pointer;
+    background-color: white;
+}
+
+.addBallForm select .options:hover {
+    background-color: lightgray;
+}
+
+.addBallForm button {
+    height: 2rem;
+    padding: 0.5rem 1rem 0.5rem 1rem;
+    margin-bottom: 0.5rem;
+    border-radius: 1rem;
+    border: none;
+    text-transform: uppercase;
+    font-weight: bold;
+    border: 1px solid gray;
+}
+
+.addBallForm button:hover {
+    cursor: pointer;
+    background-color: lightgray;
+}
+
+.addBallForm input {
+    height: 1rem;
+    padding: 1rem;
+    border: 1px solid gray;
+    margin-bottom: 0.5rem;
+    border-radius: 1rem;
 }
 
 canvas {

@@ -2,8 +2,8 @@ import * as p5 from 'p5';
 import './style.css';
 
 const canvas = (() => {
-    const CANVAS_WIDTH = 700;
-    const CANVAS_HEIGHT = 700;
+    const CANVAS_WIDTH = 600;
+    const CANVAS_HEIGHT = 600;
 
 
     class Ball {
@@ -129,7 +129,7 @@ const canvas = (() => {
 const DOMmanipulator = (() => {
     const pageTitle = document.createElement('h1');
 
-    pageTitle.innerHTML = "Colliding Balls";
+    pageTitle.innerHTML = "COLLIDING BALLS";
     document.body.appendChild(pageTitle);
 
     // canvas.addBall(new canvas.Ball([450, 250], [-10, 10], 10, 'blue'));
@@ -139,7 +139,7 @@ const DOMmanipulator = (() => {
 
     // form title
     const formTitle = document.createElement('h2');
-    formTitle.innerHTML = 'Add new ball';
+    formTitle.innerHTML = 'ADD NEW BALL';
     addBallForm.appendChild(formTitle);
 
     const xVelInput = document.createElement('input');
@@ -166,9 +166,12 @@ const DOMmanipulator = (() => {
         'fuchsia', 'green', 'lime', 'olive', 'yellow', 'navy', 'blue',
         'teal', 'aqua'
     ];
+
     for (let i = 0; i < colors.length; i++) {
         colorInput.options.add(new Option(colors[i], colors[i]));
+        colorInput.options[i].classList.add('options');
     }
+
     addBallForm.appendChild(colorInput);
 
     const addBallBtn = document.createElement('button');
