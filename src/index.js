@@ -140,12 +140,12 @@ const DOMmanipulator = (() => {
     addBallForm.appendChild(formTitle);
 
     const xPosInput = document.createElement('input');
-    xPosInput.setAttribute('type', 'text');
+    xPosInput.setAttribute('type', 'number');
     xPosInput.setAttribute('placeholder', 'X position (0 - 500)');
     addBallForm.appendChild(xPosInput);
 
     const yPosInput = document.createElement('input');
-    yPosInput.setAttribute('type', 'text');
+    yPosInput.setAttribute('type', 'number');
     yPosInput.setAttribute('placeholder', 'Y position (0 - 500)');
     addBallForm.appendChild(yPosInput);
 
@@ -154,25 +154,43 @@ const DOMmanipulator = (() => {
     addBallForm.appendChild(posWarning);
 
     const xVelInput = document.createElement('input');
-    xVelInput.setAttribute('type', 'text');
+    xVelInput.setAttribute('type', 'number');
     xVelInput.setAttribute('placeholder', 'X velocity');
     addBallForm.appendChild(xVelInput);
 
     const yVelInput = document.createElement('input');
-    yVelInput.setAttribute('type', 'text');
+    yVelInput.setAttribute('type', 'number');
     yVelInput.setAttribute('placeholder', 'Y velocity');
     addBallForm.appendChild(yVelInput);
 
     const radiusInput = document.createElement('input');
-    radiusInput.setAttribute('type', 'text');
+    radiusInput.setAttribute('type', 'number');
+    radiusInput.setAttribute('min', '1');
+    radiusInput.setAttribute('max', '100');
     radiusInput.setAttribute('placeholder', 'radius');
     addBallForm.appendChild(radiusInput);
+
+    const colorInput = document.createElement('select');
+
+    const colors = [
+        'black', 'silver', 'gray', 'white', 'maroon', 'red', 'purple',
+        'fuchsia', 'green', 'lime', 'olive', 'yellow', 'navy', 'blue',
+        'teal', 'aqua'
+    ];
+    for (let i = 0; i < colors.length; i++) {
+        colorInput.options.add(new Option(colors[i], colors[i]));
+    }
+    addBallForm.appendChild(colorInput);
 
     const addBallBtn = document.createElement('button');
     addBallBtn.innerHTML = 'Add Ball';
     addBallForm.appendChild(addBallBtn);
 
     document.body.appendChild(addBallForm);
+
+    function collectValues() {
+
+    }
 
     addBallBtn.addEventListener('click', () => {
         // if position not available, show message
