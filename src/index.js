@@ -2,8 +2,8 @@ import * as p5 from 'p5';
 import './style.css';
 
 const canvas = (() => {
-    const CANVAS_WIDTH = 500;
-    const CANVAS_HEIGHT = 500;
+    const CANVAS_WIDTH = 700;
+    const CANVAS_HEIGHT = 700;
 
 
     class Ball {
@@ -54,7 +54,7 @@ const canvas = (() => {
         }
 
         distance(anotherBall) {
-            return Math.sqrt(((this.xPos - anotherBall.xPos) ** 2) + ((this.yPos - anotherBall.yPos) ** 2));
+            return ((this.xPos - anotherBall.xPos) ** 2) + ((this.yPos - anotherBall.yPos) ** 2);
         }
 
         handleCollision(anotherBall) {
@@ -71,24 +71,25 @@ const canvas = (() => {
         }
 
         detectCollision(anotherBall) {
-            if (this.distance(anotherBall) < (this.radius + anotherBall.radius)) {
+            if (this.distance(anotherBall) < ((this.radius + anotherBall.radius) * (this.radius + anotherBall.radius))) {
                 this.handleCollision(anotherBall);
             }
         }
     }
+    let balls = [];
 
     const addBall = (newBall) => {
         balls.push(newBall);
     }
-
-    let balls;
 
     let s = (sk) => {
         const exampleBall = new Ball([50, 250], [-10, 10], 50, 'green');
         const exampleBall2 = new Ball([200, 200], [2, 5], 20, 'magenta');
         const exampleBall3 = new Ball([400, 300], [6, -5], 30, 'red');
 
-        balls = [exampleBall, exampleBall2, exampleBall3];
+        addBall(exampleBall);
+        addBall(exampleBall2);
+        addBall(exampleBall3);
 
         sk.setup = () => {
             sk.createCanvas(CANVAS_WIDTH, CANVAS_HEIGHT);
@@ -119,7 +120,9 @@ const canvas = (() => {
     return {
         addBall,
         Ball,
-        balls
+        balls,
+        CANVAS_HEIGHT,
+        CANVAS_WIDTH,
     };
 })();
 
@@ -139,41 +142,27 @@ const DOMmanipulator = (() => {
     formTitle.innerHTML = 'Add new ball';
     addBallForm.appendChild(formTitle);
 
-    const xPosInput = document.createElement('input');
-    xPosInput.setAttribute('type', 'number');
-    xPosInput.setAttribute('placeholder', 'X position (0 - 500)');
-    addBallForm.appendChild(xPosInput);
-
-    const yPosInput = document.createElement('input');
-    yPosInput.setAttribute('type', 'number');
-    yPosInput.setAttribute('placeholder', 'Y position (0 - 500)');
-    addBallForm.appendChild(yPosInput);
-
-    const posWarning = document.createElement('span');
-    posWarning.innerHTML = 'Position not available. Try again!'
-    addBallForm.appendChild(posWarning);
-
     const xVelInput = document.createElement('input');
     xVelInput.setAttribute('type', 'number');
-    xVelInput.setAttribute('placeholder', 'X velocity');
+    xVelInput.setAttribute('placeholder', 'initial X velocity');
     addBallForm.appendChild(xVelInput);
 
     const yVelInput = document.createElement('input');
     yVelInput.setAttribute('type', 'number');
-    yVelInput.setAttribute('placeholder', 'Y velocity');
+    yVelInput.setAttribute('placeholder', 'initial Y velocity');
     addBallForm.appendChild(yVelInput);
 
     const radiusInput = document.createElement('input');
     radiusInput.setAttribute('type', 'number');
     radiusInput.setAttribute('min', '1');
     radiusInput.setAttribute('max', '100');
-    radiusInput.setAttribute('placeholder', 'radius');
+    radiusInput.setAttribute('placeholder', 'radius (1-100)');
     addBallForm.appendChild(radiusInput);
 
     const colorInput = document.createElement('select');
 
     const colors = [
-        'black', 'silver', 'gray', 'white', 'maroon', 'red', 'purple',
+        'black', 'silver', 'gray', 'maroon', 'red', 'purple',
         'fuchsia', 'green', 'lime', 'olive', 'yellow', 'navy', 'blue',
         'teal', 'aqua'
     ];
@@ -188,11 +177,37 @@ const DOMmanipulator = (() => {
 
     document.body.appendChild(addBallForm);
 
-    function collectValues() {
+    let xVelNew, yVelNew, radiusNew, colorNew;
 
+    function collectValues() {
+        xVelNew = parseInt(xVelInput.value);
+        yVelNew = parseInt(yVelInput.value);
+
+        radiusNew = parseInt(radiusInput.value);
+
+        if (radiusNew < 1) {
+            radiusNew = 1;
+        } else if (radiusNew > 100) {
+            radiusNew = 100;
+        }
+
+        colorNew = colorInput.value;
+    }
+
+    function cleanValues() {
+        xVelInput.value = '';
+        yVelInput.value = '';
+
+        radiusInput.value = '';
     }
 
     addBallBtn.addEventListener('click', () => {
+        collectValues();
+        cleanValues();
+
+        let newBall = new canvas.Ball([canvas.CANVAS_WIDTH / 2, canvas.CANVAS_HEIGHT / 2], [xVelNew, yVelNew], radiusNew, colorNew);
+
+        canvas.addBall(newBall);
         // if position not available, show message
         // return
 
